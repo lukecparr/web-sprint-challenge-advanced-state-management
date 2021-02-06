@@ -1,11 +1,22 @@
 import React from 'react';
+import {Card, CardText, CardBody,CardTitle, CardSubtitle} from 'reactstrap';
 
 class Smurf extends React.Component {
     render() {
-        const { smurf } = this.props;
+      const { smurf } = this.props;
 
-        return(<div data-testid="smurf" className="card">
-        </div>);
+      return (
+        <div data-testid="smurf" className="card">
+          <Card>
+              <CardBody>
+
+            <CardTitle tag="h5">{smurf.name} ({smurf.nickname})</CardTitle>
+            <CardSubtitle className="mb-2 text-muted">{smurf.position}</CardSubtitle>
+            <CardText>{smurf.description}</CardText>
+              </CardBody>
+          </Card>
+        </div>
+      );
     }
 }
 
