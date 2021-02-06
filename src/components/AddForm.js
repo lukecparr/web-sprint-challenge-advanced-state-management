@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { addNewSmurf } from "../actions";
 
 class AddForm extends React.Component {
@@ -45,44 +46,48 @@ class AddForm extends React.Component {
     return (
       <section>
         <h2>Add Smurf</h2>
-        <form>
-          <div className="form-group">
-            <label htmlFor="name">Name:</label>
+        <Form>
+          <FormGroup className="form-group">
+            <Label htmlFor="name">Name:</Label>
             <br />
-            <input
+            <Input
+              type="text"
               value={this.state.name}
               onChange={this.handleChange}
               name="name"
               id="name"
             />
 
-            <label htmlFor="position">Position:</label>
+            <Label htmlFor="position">Position:</Label>
             <br />
-            <input
+            <Input
+              type="text"
               value={this.state.position}
               onChange={this.handleChange}
               name="position"
               id="position"
             />
 
-            <label htmlFor="nickname">Nickname:</label>
+            <Label htmlFor="nickname">Nickname:</Label>
             <br />
-            <input
+            <Input
+              type="text"
               value={this.state.nickname}
               onChange={this.handleChange}
               name="nickname"
               id="nickname"
             />
 
-            <label htmlFor="description">Description:</label>
+            <Label htmlFor="description">Description:</Label>
             <br />
-            <input
+            <Input
+              type="textarea"
               value={this.state.description}
               onChange={this.handleChange}
               name="description"
               id="description"
             />
-          </div>
+          </FormGroup>
 
           {this.state.error ? (
             <div
@@ -96,8 +101,10 @@ class AddForm extends React.Component {
             <div></div>
           )}
 
-          <button onClick={this.handleSubmit}>Submit Smurf</button>
-        </form>
+          <Button color="success" onClick={this.handleSubmit}>
+            Submit Smurf
+          </Button>
+        </Form>
       </section>
     );
   }
