@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { addNewSmurf } from "../actions";
 
 class AddForm extends React.Component {
   constructor() {
@@ -9,6 +10,7 @@ class AddForm extends React.Component {
       position: "",
       nickname: "",
       description: "",
+      error: "",
     };
   }
 
@@ -16,8 +18,30 @@ class AddForm extends React.Component {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (!this.state.name) {
+      this.setState({ ...this.state, error: "Name must be provided" });
+    } else if (!this.state.position) {
+      this.setState({ ...this.state, error: "Position must be provided" });
+    } else if (!this.state.nickname) {
+      this.setState({ ...this.state, error: "Nickname must be provided" });
+    } else {
+      this.props.smurfs.map((smurf) => {
+        this.state.name === smurf.name
+          ? this.setState({ ...this.state, error: "Smurf already exists" })
+          : this.props.addNewSmurf(this.state);
+        this.setState({
+          name: "",
+          position: "",
+          nickname: "",
+          description: "",
+        });
+      });
+    }
+  };
+
   render() {
-    const { error } = this.props;
     return (
       <section>
         <h2>Add Smurf</h2>
@@ -60,18 +84,19 @@ class AddForm extends React.Component {
             />
           </div>
 
-          {error ? (
+          {this.state.error ? (
             <div
               data-testid="errorAlert"
               className="alert alert-danger"
               role="alert"
             >
-              Error:{error}
+              Error: {this.state.error}
             </div>
           ) : (
             <div></div>
           )}
-          <button>Submit Smurf</button>
+
+          <button onClick={this.handleSubmit}>Submit Smurf</button>
         </form>
       </section>
     );
@@ -80,11 +105,12 @@ class AddForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    smurfs: state.smurfs,
     error: state.error,
   };
 };
 
-export default connect(mapStateToProps)(AddForm);
+export default connect(mapStateToProps, { addNewSmurf })(AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.
