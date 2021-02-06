@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-
 import AddForm from "./components/AddForm";
 import SmurfDisplay from "./components/SmurfDisplay";
 
